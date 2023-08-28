@@ -17,3 +17,19 @@ class DeegreService(Service):
         deegre_dict = deegre.model_dump()
         id = await self.repository.add_one(deegre_dict)
         return id
+
+    async def get_all(self):
+        """Получение всех уровней образования."""
+        res = await self.repository.find_all()
+        return res
+
+    async def update(self, id: int, deegre: DeegreSchemaAdd):
+        """Обновление уровня образования."""
+        deegre_dict = deegre.model_dump()
+        res = await self.repository.update_one(id=id, data=deegre_dict)
+        return res
+
+    async def delete(self, id: int):
+        """Удаление уровня образования."""
+        res = await self.repository.delete_one(id=id)
+        return res

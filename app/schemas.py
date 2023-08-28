@@ -1,5 +1,5 @@
 """Файл со всеми базовыми Pydantic схемами."""
-from fastapi.routing import BaseModel
+from pydantic import BaseModel
 
 
 class SuccesAddSchema(BaseModel):
@@ -12,3 +12,9 @@ class SuccesGetSchema(BaseModel):
     """Схема успешного получения всех элементов из базы данных."""
 
     data: list
+
+
+class SuccesDeleteSchema(SuccesAddSchema):
+    """Схема успешного удаления элеметна из базы данных."""
+
+    pass

@@ -6,7 +6,7 @@
 from abc import ABC, abstractmethod
 from typing import Type
 
-from sqlalchemy import insert, select
+from sqlalchemy import delete, insert, select, update
 
 from app.database import async_session_maker
 from app.models import Base
@@ -34,12 +34,12 @@ class AbstractRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def update_one():
+    async def update_one(self, id: int, data: dict):
         """Метод для обновления одного элемента в базе данных."""
         raise NotImplementedError
 
     @abstractmethod
-    async def delete_one():
+    async def delete_one(self, id: int):
         """Метод для удаления одного элемента из базы данных."""
         raise NotImplementedError
 
@@ -73,8 +73,26 @@ class SQLAlchemyRepository(AbstractRepository):
             await session.commit()
             return res.scalar_one()
 
-    async def update_one(self):
-        pass
+    async def update_one(self, id: int, data: dict) -> list:
+        """Обновление одного элемента с id `id`."""
+        async with async_session_maker() as session:
+            stmt = (
+                update(self.model)
+                .values(**data)
+                .where(self.model.id == id)
+                .returning(self.model)
+            )
+            res = await session.execute(stmt)
+            res = [row[0].to_read_model() for row in res.all()]
+            await session.commit()
+            return res
 
-    async def delete_one(self):
-        pass
+    async def delete_one(self, id: int):
+        """Удалние одного эелемента с id `id`."""
+        async with async_session_maker() as session:
+            stmt = (
+                delete(self.model).where(self.model.id == id).returning(self.model.id)
+            )
+            res = await session.execute(stmt)
+            await session.commit()
+            return res.scalar_one()
