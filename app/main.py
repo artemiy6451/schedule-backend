@@ -1,11 +1,14 @@
-"""Main fastapi app."""
+"""Стартовая точка приложения."""
 
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
+
+from app.deegre.router import router as deegre_router
 
 app = FastAPI(title="Schedule backend")
 
+routers: list[APIRouter] = [
+    deegre_router,
+]
 
-@app.get("/")
-def hello():
-    """Return status succes."""
-    return {"status": "succes"}
+for router in routers:
+    app.include_router(router)

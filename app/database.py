@@ -1,23 +1,14 @@
-"""Database default settings and session function for connection."""
+"""Файл с базовой настройкой и подключением к базе данных."""
 
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
-from sqlalchemy.orm import DeclarativeBase
 
 from app.config import settings
 
-
-class Base(DeclarativeBase):
-    """Base class for alembic migration."""
-
-    pass
+DATABASE_URL = f"postgresql+asyncpg://{settings.db_user}:{settings.db_pass}@\
+{settings.db_host}:{settings.db_port}/{settings.db_name}"
 
 
-database_uri = f"postgresql+asyncpg://{settings.db_user}:{settings.db_pass}@\
-                {settings.db_host}:{settings.db_port}/{settings.db_name}?\
-                async_fallback=True"
-
-
-engine = create_async_engine(database_uri)
+engine = create_async_engine(DATABASE_URL)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 
