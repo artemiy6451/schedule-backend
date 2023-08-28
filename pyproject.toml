@@ -5,6 +5,7 @@ description = "FastApi schedule backend"
 authors = ["Kazantsev Artem <me@lokach.ru>"]
 readme = "README.md"
 packages = [{include = "schedule_backend"}]
+
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = {extras = ["full"], version = "^0.101.1"}
