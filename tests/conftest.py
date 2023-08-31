@@ -34,11 +34,9 @@ async def prepare_database():
     """Подготовка базы данных к тестам."""
     async with engine_test.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-        print("Created base")
     yield
     async with engine_test.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
-        print("Droped base")
 
 
 @pytest.fixture(scope="session")
@@ -49,8 +47,9 @@ async def async_client() -> AsyncGenerator[AsyncClient, None]:
 
 
 @pytest.fixture(scope="session")
-def event_loop(request):
+def event_loop():
     """Создание event loop'a."""
-    loop = asyncio.get_event_loop_policy().new_event_loop()
+    policy = asyncio.get_event_loop_policy()
+    loop = policy.new_event_loop()
     yield loop
     loop.close()

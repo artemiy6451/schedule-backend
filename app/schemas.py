@@ -18,3 +18,21 @@ class SuccesDeleteSchema(SuccesAddSchema):
     """Схема успешного удаления элеметна из базы данных."""
 
     pass
+
+
+class UniversalErrorSchema(BaseModel):
+    """Схема ошибки `UniversalError`."""
+
+    details: str
+
+
+class ItemAlreadyExistSchema(UniversalErrorSchema):
+    """Схема ошибки `ItemAlreadyExist`."""
+
+    details: str = "Item already exist."
+
+
+class ItemNotFoundSchema(UniversalErrorSchema):
+    """Схема ошибки `ItemNotFound`."""
+
+    details: str = "Item not found."

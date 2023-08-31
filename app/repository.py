@@ -95,7 +95,7 @@ class SQLAlchemyRepository(AbstractRepository):
         await self.session.commit()
         return res
 
-    async def delete_one(self, id: int):
+    async def delete_one(self, id: int) -> int:
         """Удалние одного эелемента с id `id`."""
         stmt = delete(self.model).where(self.model.id == id).returning(self.model.id)
         res = await self.session.execute(stmt)
