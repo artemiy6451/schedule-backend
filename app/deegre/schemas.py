@@ -1,5 +1,5 @@
 """Файл с Pydantic схемами."""
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from app.schemas import SuccesGetSchema
 
@@ -10,10 +10,7 @@ class DeegreSchema(BaseModel):
     id: int
     name: str = "Уровень образования"
 
-    class Config:
-        """Метакласс для кофигурации схемы."""
-
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class DeegreSchemaAdd(BaseModel):

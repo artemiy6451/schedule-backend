@@ -13,5 +13,11 @@ class Settings(BaseSettings):
     db_user: str = ""
     db_pass: str = ""
 
+    test_db_host: str = ""
+    test_db_port: str = ""
+    test_db_name: str = ""
+    test_db_user: str = ""
+    test_db_pass: str = ""
+
 
 settings = Settings()

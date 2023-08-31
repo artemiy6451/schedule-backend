@@ -1,5 +1,6 @@
 """Файл с сервисами для модуля уровня образования."""
 
+from app.database import async_session_maker
 from app.deegre.schemas import DeegreSchemaAdd
 from app.repository import AbstractRepository
 from app.services import Service
@@ -10,7 +11,7 @@ class DeegreService(Service):
 
     def __init__(self, repository: type[AbstractRepository]):
         """Инициализация класса с репозиторием `repository`."""
-        self.repository: AbstractRepository = repository()
+        self.repository: AbstractRepository = repository(async_session_maker)
 
     async def add(self, deegre: DeegreSchemaAdd):
         """Добавление нового уровня образования."""
