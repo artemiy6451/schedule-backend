@@ -49,6 +49,3 @@ pythonpath = [
 ]
 asyncio_mode="auto"
 
-[virtualenvs]
-create = true
-in-project = true
