@@ -48,4 +48,3 @@ pythonpath = [
     ".", "app"
 ]
 asyncio_mode="auto"
-
