@@ -12,8 +12,10 @@ from app.database import async_session_maker, get_async_session
 from app.main import app
 from app.models import Base
 
-DATABASE_URL = f"postgresql+asyncpg://{settings.test_db_user}:{settings.test_db_pass}@\
-{settings.test_db_host}:{settings.test_db_port}/{settings.test_db_name}"
+DATABASE_URL = (
+    f"postgresql+asyncpg://{settings.test_db_user}:{settings.test_db_pass}@"
+    f"{settings.test_db_host}:{settings.test_db_port}/{settings.test_db_name}"
+)
 
 
 engine_test = create_async_engine(DATABASE_URL)
