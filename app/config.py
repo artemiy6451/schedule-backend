@@ -19,5 +19,9 @@ class Settings(BaseSettings):
     test_db_user: str = ""
     test_db_pass: str = ""
 
+    jwt_token: str = ""
+    reset_secret: str = ""
+    verify_secret: str = ""
+
 
 settings = Settings()
