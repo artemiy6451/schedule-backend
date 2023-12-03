@@ -9,6 +9,7 @@ sys.path.append(os.path.join(sys.path[0], "src"))
 
 from app.config import settings  # noqa: E402
 from app.deegre.models import Deegre  # noqa: E402, F401
+from app.direction.models import Direction  # noqa: E402, F401
 from app.models import Base  # noqa: E402
 from app.structure.models import Structure  # noqa: E402, F401
 
